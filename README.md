@@ -1,69 +1,70 @@
-# React + TypeScript + Vite
+# Simplicity Test App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a small React + Vite application built as a coding test.  
+It demonstrates an **admin panel** for managing announcements using:
 
-Currently, two official plugins are available:
+- React Router v7 – routing & layout
+- React Query – data fetching & caching
+- React Hook Form – forms & validation
+- React Select – multi-select for categories
+- React DatePicker – date & time input
+- TanStack Table – table rendering
+- Mantine – UI components & layout
+- @tabler/icons-react – icons
+- LocalStorage – mock backend with persistence
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- Sidebar layout with Mantine `AppShell`
+- Announcements list with sorting by **Last update**
+- Create / Edit announcement form
+  - All fields are **mandatory**
+  - Validation errors show as **toasts**
+- Categories are stored in LocalStorage and selected with React Select
+- 404 page for not found announcements or invalid routes
+- Errors follow a shared `IApiError` shape (`{ code: number; message: string }`)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Install dependencies:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Run local dev server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn dev
 ```
+
+App will be available at:
+
+```
+http://localhost:5173
+```
+
+Build for production:
+
+```bash
+yarn build
+```
+
+Preview production build:
+
+```bash
+yarn preview
+```
+
+## 📂 Project Structure
+
+```
+src/
+  app/              # layout, router, shared components
+  modules/
+    announcements/  # announcements module (pages, api, storage, types)
+```
+
+---
+
+💡 Data is persisted in **localStorage**. Sorting is done manually by `updatedAt` field.
