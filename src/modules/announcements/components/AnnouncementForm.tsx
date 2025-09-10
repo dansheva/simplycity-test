@@ -11,6 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import type { Announcement } from "../models";
 import { getAnnouncement, createAnnouncement, updateAnnouncement, listCategories } from "../api";
+import { NotFound } from "@app/layout";
+import type { IApiError } from "@shared/models";
 
 type FormValues = {
   title: string;
@@ -25,7 +27,16 @@ export const AnnouncementForm = () => {
   const navigate = useNavigate();
   const qc = useQueryClient();
 
-  const { data: existing, isLoading: isLoadingAnnouncement } = useQuery({
+  const {
+    data: existing,
+    isLoading: isLoadingAnnouncement,
+    error: errorAnnouncement,
+  } = useQuery<
+    Announcement | undefined,
+    IApiError,
+    Announcement | undefined,
+    (string | undefined)[]
+  >({
     queryKey: ["announcement", id],
     queryFn: () => getAnnouncement(id!),
     enabled: isEdit,
@@ -95,6 +106,10 @@ export const AnnouncementForm = () => {
   };
 
   const onSubmit = (values: FormValues) => mutateAsync(values);
+
+  if (errorAnnouncement?.code === 404) {
+    return <NotFound />;
+  }
 
   return (
     <>

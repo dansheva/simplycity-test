@@ -1,3 +1,4 @@
+import type { IApiError } from "src/shared/models";
 import type { Announcement, Category } from "./models";
 
 const LS = {
@@ -72,8 +73,13 @@ export const announcementStore = {
   list(): Announcement[] {
     return read<Announcement[]>(LS.announcements) ?? [];
   },
-  get(id: string): Announcement | undefined {
-    return this.list().find((a) => a.id === id);
+  get(id: string): Announcement {
+    const found = this.list().find((a) => a.id === id);
+    if (!found) {
+      const err: IApiError = Object.assign(new Error("Announcement not found"), { code: 404 });
+      throw err;
+    }
+    return found;
   },
   create(input: Omit<Announcement, "id" | "updatedAt">): Announcement {
     const all = this.list();

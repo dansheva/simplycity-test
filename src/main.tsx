@@ -13,7 +13,7 @@ import "@mantine/notifications/styles.css";
 import "@fontsource/lato/400.css";
 import "@fontsource/lato/700.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
