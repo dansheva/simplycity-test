@@ -107,6 +107,15 @@ export const AnnouncementForm = () => {
 
   const onSubmit = (values: FormValues) => mutateAsync(values);
 
+  React.useEffect(() => {
+    if (errorAnnouncement && errorAnnouncement.code !== 404) {
+      notifications.show({
+        message: errorAnnouncement.message || "Failed to load announcement",
+        color: "red",
+      });
+    }
+  }, [errorAnnouncement]);
+
   if (errorAnnouncement?.code === 404) {
     return <NotFound />;
   }

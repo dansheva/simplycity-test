@@ -14,18 +14,23 @@ import type { Announcement } from "../models";
 import { listAnnouncements, listCategories } from "../api";
 import { Loader } from "@app/layout";
 import { IconPencil } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
 
 const ch = createColumnHelper<Announcement>();
 
 export const AnnouncementsTable = () => {
-  const { data: announcements = [], isLoading } = useQuery({
+  const {
+    data: announcements = [],
+    isLoading,
+    isError: errorAnnouncements,
+  } = useQuery({
     queryKey: ["announcements"],
     queryFn: listAnnouncements,
     select: (data) =>
       data.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()),
   });
 
-  const { data: categories = [] } = useQuery({
+  const { data: categories = [], isError: isErrorCategories } = useQuery({
     queryKey: ["announcements-categories"],
     queryFn: listCategories,
   });
@@ -89,6 +94,15 @@ export const AnnouncementsTable = () => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  React.useEffect(() => {
+    if (errorAnnouncements || isErrorCategories) {
+      notifications.show({
+        message: "Failed to load announcements",
+        color: "red",
+      });
+    }
+  }, [errorAnnouncements, isErrorCategories]);
 
   if (isLoading) {
     return <Loader />;
