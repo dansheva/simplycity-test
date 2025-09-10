@@ -10,11 +10,20 @@ import { router } from "@app/router";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 
+import "@fontsource/lato/400.css";
+import "@fontsource/lato/700.css";
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MantineProvider defaultColorScheme="light">
+    <MantineProvider
+      defaultColorScheme="light"
+      theme={{
+        fontFamily: "Lato, sans-serif",
+        headings: { fontFamily: "Lato, sans-serif" },
+      }}
+    >
       <Notifications position="top-right" />
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />

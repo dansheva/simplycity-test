@@ -1,5 +1,12 @@
+import { Container } from "@mantine/core";
+import { AnnouncementForm } from "../components";
+
 const AnnouncementFormPage = () => {
-  return <div>Announcement Form Page</div>;
+  return (
+    <Container size="sm">
+      <AnnouncementForm />
+    </Container>
+  );
 };
 
 export default AnnouncementFormPage;

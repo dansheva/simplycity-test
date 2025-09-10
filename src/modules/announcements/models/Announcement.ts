@@ -4,4 +4,5 @@ export type Announcement = {
   publicationDate: string; // ISO
   updatedAt: string; // ISO
   categories: string[]; // category IDs referencing Category.id
+  content: string;
 };

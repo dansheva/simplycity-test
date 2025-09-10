@@ -19,6 +19,8 @@ const seedAnnouncements: Announcement[] = [
     categories: ["cat-city"],
     publicationDate: new Date(2025, 8, 1, 9, 0).toISOString(),
     updatedAt: new Date(2025, 8, 1, 9, 0).toISOString(),
+    content:
+      "Please be advised that Main St. will be closed for maintenance from Sept 1 to Sept 5.",
   },
   {
     id: "2",
@@ -26,6 +28,8 @@ const seedAnnouncements: Announcement[] = [
     categories: ["cat-health", "cat-events"],
     publicationDate: new Date(2025, 8, 3, 12, 30).toISOString(),
     updatedAt: new Date(2025, 8, 3, 12, 30).toISOString(),
+    content:
+      "Get your free flu shots at the community center this Saturday and Sunday from 10am to 4pm.",
   },
 ];
 

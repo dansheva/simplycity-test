@@ -21,6 +21,8 @@ export const AnnouncementsTable = () => {
   const { data: announcements = [], isLoading } = useQuery({
     queryKey: ["announcements"],
     queryFn: listAnnouncements,
+    select: (data) =>
+      data.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()),
   });
 
   const { data: categories = [] } = useQuery({
